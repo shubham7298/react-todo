@@ -29,31 +29,50 @@ class Todo extends Component {
                     "desc": "Learn Flask"
                 }
             ],
-            maxx: 5
+            maxx: 5,
+            modalShow: false
         }
 
         this.handleNewTodo = this.handleNewTodo.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+        this.renderModal = this.renderModal.bind(this)
+        this.closeModal = this.closeModal.bind(this)
     }
 
     handleNewTodo = (todoTitle) => {
         let newArray = this.state.todoObject.concat({"id": this.state.maxx+1, "desc": todoTitle});
-        this.setState((prevState, props) => ({
-            // if(maxx != prevState.maxx) {
+        this.setState((prevState) => ({
                 todoObject: newArray,
-                maxx: prevState.maxx+1
-            // }
+                maxx: prevState.maxx+1,
+                modalShow: false
         }))
-        console.log(this.state.todoObject)
+    }
+
+    handleDelete = (id) => {
+        this.setState((prevState) => ({
+            todoObject: prevState.todoObject.filter(ele => ele.id != id)
+        }))
+    }
+
+    renderModal(event) {	
+         this.setState(prevState => ({
+             modalShow: true
+         }))
+    }
+
+    closeModal(event) {
+        this.setState(prevState => ({
+            modalShow: false
+        }))
     }
 
 
   render() {
-    // const clickEvent = props => <Modal show={true} addNewTodo={this.props.addNewTodo}/> 
-    const clickEvent = props => <Modal show={true} addNewTodo={this.handleNewTodo}/> 
     return (
         <>
-            <TodoView todoList={this.state.todoObject}/>
-            <Button name="ADD" addNewTodo={this.handleNewTodo} clickEvent={clickEvent}/>
+            <TodoView todoList={this.state.todoObject} deleteTask={this.handleDelete}/>
+            <Button name="New Task" handleClick={this.renderModal}/>
+            <Modal show={this.state.modalShow} addNewTodo={this.handleNewTodo} onClose={this.closeModal}/>
         </>
     )
   }

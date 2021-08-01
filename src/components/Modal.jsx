@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Button from './Button';
 
 class Modal extends Component {
     constructor(props) {
@@ -22,15 +23,14 @@ class Modal extends Component {
     }
 
   render() {
-    return (
-      <div show={this.state.show}>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-                Task:
+      const isShow = this.props.show
+    return isShow && (
+     <div className="modal" onClick={this.props.onClose}>
+         <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <input type="text" value={this.state.value} name="task" onChange={this.handleChange}/>
-            </label>
-            <input type="submit" value="Submit" />
-            </form>
+                <br/>
+                <Button name="Add Task" handleClick={this.handleSubmit}/>
+        </div>
       </div>
     )
   }

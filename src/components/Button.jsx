@@ -7,24 +7,18 @@ class Button extends Component {
         this.state = {
             clicked: false
         }
-        this.handleClick = this.handleClick.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
-        this.setState(prevState => ({
-            clicked: true
-        }));
-    }
+    // handleClick(e) {
+    //     this.props.addNewTodo(e)
+    // }
 
   render() {
-      const triggerOnClick = this.state.clicked ? this.props.clickEvent : null
     return (
-        <>
-            <button onClick={this.handleClick}>{this.props.name}</button>
-            {/* {this.state.clicked ? <Modal show={true} addNewTodo={this.handleAddTodoCallback}/> : null} */}
-            {this.state.clicked ? <Modal show={true} addNewTodo={this.props.addNewTodo}/> : null}
-            {/* <triggerOnClick/> */}
-        </>
+        <button className="button" onClick={this.props.handleClick}>
+            {this.props.name}
+        </button>
     )
   }
 }

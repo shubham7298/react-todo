@@ -30,7 +30,55 @@ ul {
 }
 
 .card {
-  padding: 20px 20px;
+  padding: 10px 10px;
   border: black;
-  margin: 5px 5px;
+  margin: 10px 10px;
+  border-width: 1px;
+  border-style: double;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* border-style: ; */
+}
+
+.modal-content {
+  width: 500px;
+  height: 100px;
+  background-color: whitesmoke;
+  padding: 10px;
+}
+
+button {
+  /* display: flex; */
+  overflow: hidden;
+
+  margin: 10px;
+  padding: 12px 12px;
+
+  cursor: pointer;
+  color: #FFFFFF;
+  background-color: #353866;
+  border: 0 none;
+
+}
+
+input {
+  /* width: 140px; */
+  box-sizing: border-box;
+  border: 6px solid #8d8d8d;
+    border-radius: 4px;
+    width: 100%;
+    padding: 0 60px 0 16px;
+    font-size: 24px;
+    height: 50px;
+    outline: none;
 }

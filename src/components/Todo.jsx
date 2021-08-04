@@ -7,29 +7,8 @@ class Todo extends Component {
     constructor() {
         super()
         this.state = {
-            todoObject: [
-                {
-                    "id": 1,
-                    "desc": "Learn React"
-                },
-                {
-                    "id": 2,
-                    "desc": "Learn Angular"
-                },
-                {
-                    "id": 3,
-                    "desc": "Learn Vue"
-                },
-                {
-                    "id": 4,
-                    "desc": "Learn Django"
-                },
-                {
-                    "id": 5,
-                    "desc": "Learn Flask"
-                }
-            ],
-            maxx: 5,
+            todoObject: [],
+            maxx: 0,
             modalShow: false
         }
 
@@ -39,31 +18,45 @@ class Todo extends Component {
         this.closeModal = this.closeModal.bind(this)
     }
 
+    componentDidMount() {
+        let storedData = JSON.parse(localStorage.getItem('todos'));
+ console.log(storedData)
+        if (localStorage.getItem('todos')) {
+            this.setState({
+                todoObject: storedData,
+                maxx: storedData.length
+            })
+        }
+    }
+
     handleNewTodo = (todoTitle) => {
-        let newArray = this.state.todoObject.concat({"id": this.state.maxx+1, "desc": todoTitle});
-        this.setState((prevState) => ({
-                todoObject: newArray,
-                maxx: prevState.maxx+1,
-                modalShow: false
-        }))
+        const storedData = this.state.todoObject.concat({"id": this.state.maxx+1, "desc": todoTitle});
+        this.setState({
+            todoObject: storedData,
+            maxx: storedData.length,
+            modalShow: false
+        })
+        localStorage.setItem('todos',JSON.stringify(storedData));
     }
 
     handleDelete = (id) => {
-        this.setState((prevState) => ({
-            todoObject: prevState.todoObject.filter(ele => ele.id != id)
-        }))
+        const storedData = this.state.todoObject.filter(ele => ele.id !== id)
+        localStorage.setItem('todos',JSON.stringify(storedData));
+        this.setState({
+            todoObject: storedData
+        })
     }
 
     renderModal(event) {	
-         this.setState(prevState => ({
+         this.setState({
              modalShow: true
-         }))
+         })
     }
 
     closeModal(event) {
-        this.setState(prevState => ({
+        this.setState({
             modalShow: false
-        }))
+        })
     }
 
 

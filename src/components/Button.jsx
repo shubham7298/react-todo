@@ -1,22 +1,11 @@
 import React, {Component} from 'react'
-import Modal from './Modal';
+// import Modal from './Modal';
 
 class Button extends Component {
-    constructor() {
-        super()
-        this.state = {
-            clicked: false
-        }
-        // this.handleClick = this.handleClick.bind(this);
-    }
-
-    // handleClick(e) {
-    //     this.props.addNewTodo(e)
-    // }
 
   render() {
     return (
-        <button className="button" onClick={this.props.handleClick}>
+        <button className="button" id={this.props.id} onClick={this.props.handleClick} disabled={this.props.disabled}>
             {this.props.name}
         </button>
     )

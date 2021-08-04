@@ -5,9 +5,9 @@ class Modal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: this.props.show,
             value: ''
         }
+        // this.myRef = React.createRef();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -17,8 +17,9 @@ class Modal extends Component {
     }
 
     handleSubmit(event) {
-        this.setState({show: false})
+        this.props.onClose()
         this.props.addNewTodo(this.state.value)
+        this.setState({value: ''})
         event.preventDefault();
     }
 
@@ -29,7 +30,7 @@ class Modal extends Component {
          <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <input type="text" value={this.state.value} name="task" onChange={this.handleChange}/>
                 <br/>
-                <Button name="Add Task" handleClick={this.handleSubmit}/>
+                <Button disabled={this.state.value.length>0} id="submitModalInput" name="Add Task" handleClick={this.handleSubmit}/>
         </div>
       </div>
     )

@@ -6,8 +6,8 @@ import Main from './components/Main'
 function App() {
   return (
     <div className="App">
-      <TitleBar title="ToDo Application"></TitleBar>
-      <Main></Main>
+      <TitleBar title="ToDo Application" />
+      <Main/>
     </div>
   );
 }

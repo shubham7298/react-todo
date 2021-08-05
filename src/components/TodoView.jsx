@@ -1,19 +1,17 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Card from './Card'
 
-class TodoView extends Component {
-  render() {
-    const todoItems = this.props.todoList.map((todoElement) =>
-        <Card key={todoElement.id} id={todoElement.id} desc={todoElement.desc} deleteTask={this.props.deleteTask}/>
+function TodoView(props) {
+    const todoItems = props.todoList.map((todoElement) =>
+        <Card key={todoElement.id} id={todoElement.id} desc={todoElement.desc} deleteTask={props.deleteTask}/>
     )
     return (
-      <div>
-          <ul>
-             {todoItems}
-          </ul>
-      </div>
+        <div>
+            <ul>
+                {todoItems}
+            </ul>
+        </div>
     )
-  }
 }
 
 export default TodoView

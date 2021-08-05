@@ -1,23 +1,18 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Button from './Button'
 
-class Card extends Component {
-    constructor(props) {
-        super(props)
-        this.deleteTask = this.deleteTask.bind(this)
+function Card(props) {
+
+    function deleteTask(event) {
+        props.deleteTask(props.id)
     }
 
-    deleteTask(event) {
-        this.props.deleteTask(this.props.id)
-    }
-  render() {
     return (
-      <div className="card">
-          <span>{this.props.desc}</span>
-          <Button name="DONE" handleClick={this.deleteTask}/>
-      </div>
+        <div className="card">
+            <span>{props.desc}</span>
+            <Button name="DONE" handleClick={deleteTask}/>
+        </div>
     )
-  }
 }
 
 export default Card

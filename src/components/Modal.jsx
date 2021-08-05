@@ -1,40 +1,29 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import Button from './Button';
 
-class Modal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ''
-        }
-        // this.myRef = React.createRef();
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+function Modal(props) {
+    const [value, setValue] = useState('')
+
+    function handleChange(event) {
+        setValue(event.target.value)
     }
 
-    handleChange(event) {
-        this.setState({value: event.target.value})
-    }
-
-    handleSubmit(event) {
-        this.props.onClose()
-        this.props.addNewTodo(this.state.value)
-        this.setState({value: ''})
+    function handleSubmit(event) {
+        props.onClose()
+        props.addNewTodo(value)
+        setValue('')
         event.preventDefault();
     }
 
-  render() {
-      const isShow = this.props.show
-    return isShow && (
-     <div className="modal" onClick={this.props.onClose}>
+    return props.show && (
+     <div className="modal" onClick={props.onClose}>
          <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <input type="text" value={this.state.value} name="task" onChange={this.handleChange}/>
+                <input type="text" value={value} name="task" onChange={handleChange}/>
                 <br/>
-                <Button disabled={this.state.value.length>0} id="submitModalInput" name="Add Task" handleClick={this.handleSubmit}/>
+                <Button disabled={value.length<=0} id="submitModalInput" name="Add Task" handleClick={handleSubmit}/>
         </div>
       </div>
     )
-  }
 }
 
 export default Modal

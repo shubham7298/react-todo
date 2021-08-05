@@ -1,15 +1,11 @@
-import React, {Component} from 'react'
-// import Modal from './Modal';
+import React from 'react'
 
-class Button extends Component {
-
-  render() {
+function Button(props) {
     return (
-        <button className="button" id={this.props.id} onClick={this.props.handleClick} disabled={this.props.disabled}>
-            {this.props.name}
+        <button className="button" id={props.id} onClick={props.handleClick} disabled={props.disabled}>
+            {props.name}
         </button>
     )
-  }
 }
 
 export default Button

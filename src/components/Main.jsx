@@ -1,14 +1,12 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Todo from './Todo'
 
-class Main extends Component {
-  render() {
-    return (
-      <div>
-          <Todo />
-      </div>
-    )
-  }
+function Main() {
+  return (
+    <div>
+        <Todo />
+    </div>
+  )
 }
 
 export default Main

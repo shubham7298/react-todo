@@ -1,74 +1,54 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import Button from './Button'
 import Modal from './Modal'
 import TodoView from './TodoView'
 
-class Todo extends Component {
-    constructor() {
-        super()
-        this.state = {
-            todoObject: [],
-            maxx: 0,
-            modalShow: false
+function Todo(props) {
+    const [todoList, setTodoList] = useState([])
+    const [maxx, setMaxx] = useState(0)
+    const [modalShow, setModalShow] = useState(false)
+
+
+    function handleNewTodo(todoTitle) {
+        const storedData = todoList.concat({"id": maxx+1, "desc": todoTitle});
+        setTodoList(storedData)
+        setMaxx(storedData.length)
+        setModalShow(false)
+    }
+
+    function handleDelete(id) {
+        const storedData = todoList.filter(ele => ele.id !== id)
+        setTodoList(storedData)
+    }
+
+    function renderModal(event) {	
+        setModalShow(true)
+    }
+
+    function closeModal(event) {
+        setModalShow(false)
+    }
+
+    useEffect(() => {
+        let storedData = localStorage.getItem('todos')
+        if (storedData) {
+            setTodoList(JSON.parse(storedData))
+            setMaxx(todoList.length)
         }
+    }, [])
 
-        this.handleNewTodo = this.handleNewTodo.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-        this.renderModal = this.renderModal.bind(this)
-        this.closeModal = this.closeModal.bind(this)
-    }
+    useEffect(() => {
+        localStorage.setItem('todos',JSON.stringify(todoList));
+    }, [todoList])
 
-    componentDidMount() {
-        let storedData = JSON.parse(localStorage.getItem('todos'));
- console.log(storedData)
-        if (localStorage.getItem('todos')) {
-            this.setState({
-                todoObject: storedData,
-                maxx: storedData.length
-            })
-        }
-    }
-
-    handleNewTodo = (todoTitle) => {
-        const storedData = this.state.todoObject.concat({"id": this.state.maxx+1, "desc": todoTitle});
-        this.setState({
-            todoObject: storedData,
-            maxx: storedData.length,
-            modalShow: false
-        })
-        localStorage.setItem('todos',JSON.stringify(storedData));
-    }
-
-    handleDelete = (id) => {
-        const storedData = this.state.todoObject.filter(ele => ele.id !== id)
-        localStorage.setItem('todos',JSON.stringify(storedData));
-        this.setState({
-            todoObject: storedData
-        })
-    }
-
-    renderModal(event) {	
-         this.setState({
-             modalShow: true
-         })
-    }
-
-    closeModal(event) {
-        this.setState({
-            modalShow: false
-        })
-    }
-
-
-  render() {
     return (
         <>
-            <TodoView todoList={this.state.todoObject} deleteTask={this.handleDelete}/>
-            <Button name="New Task" handleClick={this.renderModal}/>
-            <Modal show={this.state.modalShow} addNewTodo={this.handleNewTodo} onClose={this.closeModal}/>
+            <TodoView todoList={todoList} deleteTask={handleDelete}/>
+            <Button name="New Task" handleClick={renderModal}/>
+            <Modal show={modalShow} addNewTodo={handleNewTodo} onClose={closeModal}/>
         </>
     )
-  }
+
 }
 
 export default Todo
